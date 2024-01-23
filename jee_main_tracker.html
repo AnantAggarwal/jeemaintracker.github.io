@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<script>
+			var bool = false;
+			var current_page="";
+			var xhttp = new XMLHttpRequest();
+			var audio_element=new Audio("E:\\Anant\\CowinApplication\\FadedGuitar.mp3")
+			function send_request(){
+				xhttp.onreadystatechange = function() {
+		  			if (this.readyState == 4 && this.status == 200) {
+		    			var new_page = this.responseText;
+		    			if (current_page != new_page){
+		    				if(bool){
+			    				console.log("Admit card may have come!");
+			    				audio_element.play();
+			    				
+			    			}else{
+			    				console.log(new_page);
+			    				bool=true;
+			    			}
+			    			current_page=new_page;
+
+		    			}
+		  			}
+				};
+				xhttp.open("GET", "https://jeemain.nta.ac.in/", true);
+				xhttp.send();
+			}
+			var repeat = setInterval(send_request,5000);
+		</script>
+	</head>
+</html>
